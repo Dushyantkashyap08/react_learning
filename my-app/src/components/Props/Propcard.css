@@ -1,0 +1,11 @@
+.prop-container{
+    height: 150px;
+    width:200px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    color: black;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 1rem;
+}

@@ -1,0 +1,24 @@
+.counter-container{
+    height: 150px;
+    width:200px;
+    background-color: rgb(99, 184, 156);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#para{
+    text-align: center;
+    font-size: 1.5rem;
+}
+
+#btn{
+    width: 70px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 60px;
+}
