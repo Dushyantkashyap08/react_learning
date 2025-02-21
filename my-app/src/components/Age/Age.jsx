@@ -7,7 +7,9 @@ const Age = ({changeAge, age}) => {
       {
         age>=18?(
             <h5 style={{"backgroundColor" : "red"}}>You are Adult</h5>
-        ):(
+        ):( age == 0 ? (
+            <h5 style={{"backgroundColor" : "yellow"}}>Enter your age</h5>
+        ) :
             <h5 style={{"backgroundColor" : "green"}}>You are a kid</h5>
         )
       }

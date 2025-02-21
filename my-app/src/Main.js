@@ -1,11 +1,13 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Panel from './components/Panel/Panel';
 import SyncedInput from './components/SyncedInput/SyncedInput';
 import Search from './components/Search/Search';
 import {foods, filterItems} from './components/Search/data.js'
 import HideShow from './components/HideShow/HideShow.jsx';
 import Age from './components/Age/Age.jsx';
+import Color from './components/Color/Color.jsx';
+import Toggle from './components/ToggleBackground/ToggleBackground.jsx';
 
 //State lifting means moving the state management from a child component up to its parent so that multiple child components can share and control the same state. It is done when state is mantained in parent as done in this example.
 
@@ -15,7 +17,14 @@ const Main = () => {
   const [query, setQuery] = useState('');
   const [hide, setHide] = useState(false);
   const [age, setAge] = useState('');
+  const [click, setClick] = useState(0);
+  const [dark, toggleDark] = useState('white');
 
+  const divRef = useRef(null);
+
+  function darkMode(){
+    toggleDark(dark === 'white' ? 'black' : 'white')
+  }
 
   function changeName(e){
     setName(e.target.value) 
@@ -27,6 +36,24 @@ const Main = () => {
 
   function changeAge(e){
     setAge(e.target.value)
+  }
+
+  function handleClick(){
+    setClick(click+1)
+  }
+
+  function getRandomColor(){
+      let r = 150 + Math.round(100 * Math.random());
+      let g = 150 + Math.round(100 * Math.random());
+      let b = 150 + Math.round(100 * Math.random());
+      return `rgb(${r}, ${g}, ${b})`;
+  }
+
+  function changeColor(e){
+    e.stopPropagation(); // prevents from propagating the event to root element (bubbling up)
+    if(divRef.current){
+      divRef.current.style.backgroundColor = getRandomColor()
+    }
   }
 
   const result = filterItems(foods, query)
@@ -57,6 +84,9 @@ const Main = () => {
       <HideShow hide={hide} toggleHide={() => setHide(!hide)} />
       
       <Age age={age} changeAge={changeAge} />
+      <Color style={{"border": "10px solid black"}} getClick={handleClick} clicks={click} colorChange={changeColor} divRef={divRef}/>
+      <br/>
+      <Toggle style={{"border": "5px solid red"}} toggleBackground={darkMode} col={dark} />
       </>
   );
 
